@@ -7,7 +7,7 @@ export const App = () => {
   return (
     <div className={style.app}>
       <Section title="Leave Feedback">
-        <FeedbackOptions />
+        <FeedbackOptions options={''} />
       </Section>
       <Section title="Statistics">
         {
