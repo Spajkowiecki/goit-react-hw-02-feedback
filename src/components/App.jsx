@@ -6,30 +6,46 @@ import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Notification from './Notification/Notification';
 //klasowo
 export class App extends Component {
-  //
-
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
   };
 
+  countTotalFeedbacks() {
+    //uzywam reduce aby dodac wszystkie wartosci z feedback'u
+    return this.countTotalFeedbacks === 0
+      ? 0
+      : Object.values(this.state).reduce((a, b) => a + b);
+  }
+  countPositiveFeedbackPercentage() {
+    return this.countTotalFeedbacks === 0
+      ? 0
+      : Math.round((this.state.good / this.countTotalFeedbacks()) * 100);
+  }
+
   onLeaveFeedback = e => {
-    if (e.target.textContent === 'good') {
-      this.setState({ good: this.state.good + 1 });
-    }
-    if (e.target.textContent === 'neutral') {
-      this.setState({ neutral: this.state.neutral + 1 });
-    }
-    if (e.target.textContent === 'bad') {
-      this.setState({ bad: this.state.bad + 1 });
+    //w pętli sprawdzam który guzik został nacisnięty po przez
+    switch (e.target.textContent) {
+      case 'good':
+        this.setState(prevState => ({
+          good: prevState.good + 1,
+        }));
+        break;
+      case 'neutral':
+        this.setState(prevState => ({
+          neutral: prevState.neutral + 1,
+        }));
+        break;
+      case 'bad':
+        this.setState(prevState => ({
+          bad: prevState.bad + 1,
+        }));
+        break;
+      default:
+        return 0;
     }
   };
-
-  countTotalFeedback(options) {
-    const sum = Object.values(options).reduce((prev, el) => prev + el, 0);
-    return sum;
-  }
 
   render() {
     return (
@@ -41,14 +57,13 @@ export class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          {this.countTotalFeedback(this.state) === 0 ? (
+          {this.countTotalFeedbacks() === 0 ? (
             <Notification message="There is no feedback" />
           ) : (
             <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.countTotalFeedback}
+              stats={this.state}
+              total={this.countTotalFeedbacks()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           )}
         </Section>
