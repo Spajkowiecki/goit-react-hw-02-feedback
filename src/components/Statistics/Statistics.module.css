@@ -1,0 +1,8 @@
+.stat li p {
+  display: flex;
+  justify-content: space-between;
+}
+
+strong {
+  color: red;
+}
