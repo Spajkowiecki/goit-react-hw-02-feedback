@@ -6,10 +6,14 @@ import Statistics from './Statistics/Statistics';
 import styles from './App.module.css';
 
 class App extends Component {
+  initialValue = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
   state = {
-    good: 3,
-    neutral: 2,
-    bad: 2,
+    ...this.initialValue,
   };
 
   sumTotal() {
@@ -20,11 +24,22 @@ class App extends Component {
     return (this.state.good / this.sumTotal()) * 100;
   }
 
+  handleFeedback = button => {
+    const { textContent } = button.target;
+    const name = textContent.toLowerCase();
+    this.setState(prevState => {
+      return { [name]: prevState[name] + 1 };
+    });
+  };
+
   render() {
     return (
       <div className={styles.container}>
         <Section title="Please leave feedback">
-          <FeedbackOptions options={this.state} onLeaveFeedback={'???'} />
+          <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.handleFeedback}
+          />
         </Section>
         <Section title="Statistics">
           {this.sumTotal() === 0 ? (
