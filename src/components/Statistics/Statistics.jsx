@@ -1,6 +1,7 @@
-import styles from './Statistics.module.css';
+import { Component } from 'react';
 
-const { Component } = require('react');
+import styles from './Statistics.module.css';
+import PropTypes from 'prop-types';
 
 class Statistics extends Component {
   render() {
@@ -47,5 +48,13 @@ class Statistics extends Component {
     );
   }
 }
+
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+};
 
 export default Statistics;

@@ -1,6 +1,7 @@
-import styles from './FeedbackOptions.module.css';
+import { Component } from 'react';
 
-const { Component } = require('react');
+import styles from './FeedbackOptions.module.css';
+import PropTypes from 'prop-types';
 
 class FeedbackOptions extends Component {
   render() {
@@ -18,5 +19,10 @@ class FeedbackOptions extends Component {
     );
   }
 }
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object),
+  onLeaveFeedback: PropTypes.func,
+};
 
 export default FeedbackOptions;
