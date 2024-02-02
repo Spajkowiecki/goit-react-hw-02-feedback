@@ -7,17 +7,6 @@ class Statistics extends Component {
   render() {
     const { good, neutral, bad, total, positivePercentage } = this.props;
     return (
-      //   <ul className={styles}>
-      //     {propsArray.map(stat => {
-      //       return (
-      //         <li key={stat}>
-      //           <p className={styles.stat}>
-      //             {stat}: <strong>{this.props[stat]}</strong>
-      //           </p>
-      //         </li>
-      //       );
-      //     })}
-      //   </ul>
       <ul className={styles.stat}>
         <li>
           <p>
